@@ -16,7 +16,7 @@ public class GameUIController : MonoBehaviour
     public void OnBackBtn()
     {
         // GameManager.Instance.ChangeToMainScene()
-        GameManager.Instance.OpenConfirmPanel("게임을 종료하시겠습니까?");        
+        GameManager.Instance.OpenConfirmPanel("게임을 종료하시겠습니까?" , GameManager.Instance.ChangeToMainScene);        
     }
 
     public void OnSetthingBtn()

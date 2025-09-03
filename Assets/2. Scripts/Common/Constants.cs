@@ -1,5 +1,7 @@
 public class Constants
 {
     public enum GameType { Single, Dual, Multi }
-    public static GameType Game_Type;
+    public enum PlayerType{ None , O , X}
+
+    public const int BlcokColumnCount = 3;
 }
