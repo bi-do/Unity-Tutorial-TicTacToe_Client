@@ -10,11 +10,14 @@ public class GameManager : Singleton<GameManager>
     private Constants.GameType game_type;
 
     [SerializeField] GameObject confirm_panel_prefab;
+
     private GameObject confirm_panel;
 
     private Canvas canvas;
 
     private GameLogic game_logic;
+
+    private GameUIController game_ui_control;
 
     protected override void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
@@ -23,16 +26,35 @@ public class GameManager : Singleton<GameManager>
         if (scene.name == "Game")
         {
             BlockController blcok_control = FindFirstObjectByType<BlockController>();
-            blcok_control.InitBlocks();
-            if (this.game_logic != null)
+            if (blcok_control != null)
             {
-
+                blcok_control.InitBlocks();
             }
             else
             {
-                this.game_logic = new GameLogic(blcok_control, this.game_type);
+                // TODO: 오류 팝업
             }
+
+            this.game_ui_control = FindFirstObjectByType<GameUIController>();
+            if (this.game_ui_control != null)
+            {
+                this.game_ui_control.SetGameTurnPanel(GameUIController.GameTurnPanelType.None);
+            }
+            else
+            {
+                // TODO: 오류 팝업
+            }
+
+            // 게임 로직 생성
+            this.game_logic = new GameLogic(blcok_control, this.game_type);
+
         }
+    }
+
+    /// <summary> Game Scene에서 턴을 표시하는 UI를 제어하는 함수 </summary>
+    public void SetGameTurnPanel(GameUIController.GameTurnPanelType game_turn_panel_t)
+    {
+        this.game_ui_control.SetGameTurnPanel(game_turn_panel_t);
     }
 
     /// <summary> Main에서 Game Scene으로 전환 시 호출될 메서드 </summary>
@@ -48,11 +70,10 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(0);
     }
 
-    public void OpenConfirmPanel(string msg , Action on_confirm_btn_callback)
+    public void OpenConfirmPanel(string msg, Action on_confirm_btn_callback)
     {
         if (canvas != null)
         {
-
             if (this.confirm_panel == null)
             {
                 GameObject temp_confirm = Instantiate(this.confirm_panel_prefab, this.canvas.transform);
@@ -63,7 +84,7 @@ public class GameManager : Singleton<GameManager>
                 this.confirm_panel.gameObject.SetActive(true);
             }
             this.confirm_panel.GetComponent<ConfirmPanelController>().Show(msg, on_confirm_btn_callback);
-            
+
         }
     }
 }

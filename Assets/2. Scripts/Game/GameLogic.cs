@@ -8,7 +8,7 @@ public class GameLogic
     public BlockController block_control;
 
     /// <summary> 현재 보드의 보태 정보 </summary>
-    public Constants.PlayerType[,] board;
+    private Constants.PlayerType[,] board;
 
     public BasePlayerState first_player_state;
     public BasePlayerState second_player_state;
@@ -26,16 +26,22 @@ public class GameLogic
         switch (game_t)
         {
             case Constants.GameType.Single:
+                this.first_player_state = new PlayerState(true);
+                this.second_player_state = new AIState();
                 break;
             case Constants.GameType.Multi:
                 break;
             case Constants.GameType.Dual:
                 this.first_player_state = new PlayerState(true);
                 this.second_player_state = new PlayerState(false);
-
-                SetState(this.first_player_state);
                 break;
         }
+        SetState(this.first_player_state);
+    }
+
+    public Constants.PlayerType[,] GetBoard()
+    {
+        return this.board;
     }
 
     /// <summary> 
@@ -75,73 +81,74 @@ public class GameLogic
         return false;
     }
 
-    public bool CheckGameDraw(Constants.PlayerType[,] board)
-    {
-        for (int i = 0; i < Constants.BlcokColumnCount; i++)
-        {
-            for (int j = 0; j < Constants.BlcokColumnCount; j++)
-            {
-                if (board[i, j] != Constants.PlayerType.None)
-                    return false;
-            }
-        }
-        return true;
-    }
 
     public void EndGame(GameResult game_result)
     {
-        // TODO: Game Logic 정리
         SetState(null);
         this.first_player_state = null;
         this.second_player_state = null;
 
         // TODO: 유저에게 Game Over 표시
 
-        Debug.Log("GAME OVER");
+        GameManager.Instance.OpenConfirmPanel("게임 오버", GameManager.Instance.ChangeToMainScene);
     }
 
     public GameResult CheckGameResult()
     {
-        if (CheckGameWin(Constants.PlayerType.O, this.board))
+        if (TicTacToeAI.CheckGameWin(Constants.PlayerType.O, this.board))
         {
             return GameResult.Win;
         }
-        else if (CheckGameWin(Constants.PlayerType.X, this.board))
+        else if (TicTacToeAI.CheckGameWin(Constants.PlayerType.X, this.board))
         {
             return GameResult.Lose;
         }
-        else if (CheckGameDraw(this.board))
+        else if (TicTacToeAI.CheckGameDraw(this.board))
             return GameResult.Draw;
         else
             return GameResult.None;
     }
 
-    private bool CheckGameWin(Constants.PlayerType player_t, Constants.PlayerType[,] board)
-    {
-        for (int row = 0; row < Constants.BlcokColumnCount; row++)
-        {
-            if (board[row, 0] == player_t && board[row, 0] == player_t && board[row, 0] == player_t)
-            {
-                return true;
-            }
-        }
-        for (int col = 0; col < Constants.BlcokColumnCount; col++)
-        {
-            if (board[0, col] == player_t && board[1, col] == player_t && board[2, col] == player_t)
-            {
-                return true;
-            }
-        }
 
-        if (board[0, 0] == player_t && board[1, 1] == player_t && board[2, 2] == player_t)
-        {
-            return true;
-        }
-        else if (board[2, 0] == player_t && board[1, 1] == player_t && board[0, 2] == player_t)
-        {
-            return true;
-        }
+    // public bool CheckGameDraw(Constants.PlayerType[,] board)
+    // {
+    //     for (int i = 0; i < Constants.BlcokColumnCount; i++)
+    //     {
+    //         for (int j = 0; j < Constants.BlcokColumnCount; j++)
+    //         {
+    //             if (board[i, j] != Constants.PlayerType.None)
+    //                 return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
-        return false;
-    }
+    // private bool CheckGameWin(Constants.PlayerType player_t, Constants.PlayerType[,] board)
+    // {
+    //     for (int row = 0; row < Constants.BlcokColumnCount; row++)
+    //     {
+    //         if (board[row, 0] == player_t && board[row, 1] == player_t && board[row, 2] == player_t)
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     for (int col = 0; col < Constants.BlcokColumnCount; col++)
+    //     {
+    //         if (board[0, col] == player_t && board[1, col] == player_t && board[2, col] == player_t)
+    //         {
+    //             return true;
+    //         }
+    //     }
+
+    //     if (board[0, 0] == player_t && board[1, 1] == player_t && board[2, 2] == player_t)
+    //     {
+    //         return true;
+    //     }
+    //     else if (board[2, 0] == player_t && board[1, 1] == player_t && board[0, 2] == player_t)
+    //     {
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
 }

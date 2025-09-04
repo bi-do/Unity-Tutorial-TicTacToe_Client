@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebe08397a389914db9ccc10ae7e52f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_o_turn_panel: {fileID: 1608687018}
+  player_x_turn_panel: {fileID: 1054381372}
   back_btn: {fileID: 708498824}
   setting_btn: {fileID: 1719266092}
 --- !u!4 &197063699
@@ -1215,7 +1217,7 @@ GameObject:
   - component: {fileID: 1054381373}
   - component: {fileID: 1054381374}
   m_Layer: 5
-  m_Name: '[Panel] Player B Turn'
+  m_Name: '[Panel] Player X Turn'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1860,7 +1862,7 @@ GameObject:
   - component: {fileID: 1608687019}
   - component: {fileID: 1608687020}
   m_Layer: 5
-  m_Name: '[Panel] Player A Turn'
+  m_Name: '[Panel] Player O Turn'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

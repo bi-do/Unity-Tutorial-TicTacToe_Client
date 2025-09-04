@@ -24,12 +24,12 @@ public class MainPanelController : MonoBehaviour
 
     public void OnMultiPlayBtn()
     {
-        GameManager.Instance.ChangeToGameScene(Constants.GameType.Dual);
+        GameManager.Instance.ChangeToGameScene(Constants.GameType.Multi);
     }
 
     public void OnDualPlayBtn()
     {
-        GameManager.Instance.ChangeToGameScene(Constants.GameType.Multi);
+        GameManager.Instance.ChangeToGameScene(Constants.GameType.Dual);
     }
 
     public void OnSettingsBtn()

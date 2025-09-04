@@ -17,7 +17,9 @@ public class PlayerState : BasePlayerState
     public override void OnEnter(GameLogic game_logic)
     {
         // 1. First Player인지 확인해서 게임 UI에 현재 턴 표시
-        // TODO: Game 씬 턴 표시 UI 구현 후 진행 예정
+
+        GameUIController.GameTurnPanelType cur_player_type_ui = isFirstPlayer ? GameUIController.GameTurnPanelType.OTurn : GameUIController.GameTurnPanelType.XTurn;
+        GameManager.Instance.SetGameTurnPanel(cur_player_type_ui);
 
         // 2. Blcok Controller에게 해야 할 일을 전달
         game_logic.block_control.on_block_click_callback = (row, col) =>
@@ -40,11 +42,11 @@ public class PlayerState : BasePlayerState
     {
         if (isFirstPlayer)
         {
-            // TODO: 게임 로직에게 Second Player의 상태를 활성화 하라고 전달
+            game_logic.SetState(game_logic.second_player_state);
         }
         else
         {
-            // TODO: 게임 로직에게 First Player의 상태를 활성화 하라고 전달
+            game_logic.SetState(game_logic.first_player_state);
         }
     }
 

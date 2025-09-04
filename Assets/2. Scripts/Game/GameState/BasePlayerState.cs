@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public abstract class BasePlayerState
 {
     /// <summary> 상태 시작 </summary>
@@ -18,7 +20,7 @@ public abstract class BasePlayerState
         if (game_logic.SetNewBoardValue(player_t, row, col))
         {
             GameLogic.GameResult game_result = game_logic.CheckGameResult();
-            
+
             if (game_result == GameLogic.GameResult.None)
             {
                 HandleNextTurn(game_logic);
