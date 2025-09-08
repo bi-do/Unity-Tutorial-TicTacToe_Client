@@ -10,18 +10,13 @@ public class PanelController : MonoBehaviour
 
     [SerializeField] private RectTransform panel_rect_tf;
 
+    /// <summary> Hide시 호출되는 callback </summary>
     public Action panel_hide_callback;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     protected virtual void Awake()
     {
         this.background_canvas_group = this.GetComponent<CanvasGroup>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     /// <summary>  패널 표시 </summary>
@@ -48,7 +43,13 @@ public class PanelController : MonoBehaviour
         panel_rect_tf.DOScale(1, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
         {
             hide_act?.Invoke();
+            this.gameObject.SetActive(false);
         });
 
+    }
+
+    protected void Shake()
+    {
+        panel_rect_tf.DOShakeAnchorPos(0.3f);
     }
 }

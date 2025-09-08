@@ -531,6 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   confirm_panel_prefab: {fileID: 8612112030981652504, guid: 6a42d6577cbc150429c5cd1b1b540fda, type: 3}
+  signin_panel_prefab: {fileID: 8424095923206256042, guid: 78ae2df24dfe1ab47886ab2aaf796695, type: 3}
+  signup_panel_prefab: {fileID: 8424095923206256042, guid: 1df27a17265233544bd7a229345653fd, type: 3}
 --- !u!4 &485115543
 Transform:
   m_ObjectHideFlags: 0

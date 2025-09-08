@@ -9,7 +9,9 @@ public class GameManager : Singleton<GameManager>
     /// <summary> Main Scene에서 선택한 게임 타입의 변수 </summary>
     private Constants.GameType game_type;
 
-    [SerializeField] GameObject confirm_panel_prefab;
+    [SerializeField] private GameObject confirm_panel_prefab;
+    [SerializeField] private GameObject signin_panel_prefab;
+    [SerializeField] private GameObject signup_panel_prefab;
 
     private GameObject confirm_panel;
 
@@ -18,6 +20,11 @@ public class GameManager : Singleton<GameManager>
     private GameLogic game_logic;
 
     private GameUIController game_ui_control;
+
+    void Start()
+    {
+        OpenSigninPanel();
+    }
 
     protected override void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
@@ -85,6 +92,24 @@ public class GameManager : Singleton<GameManager>
             }
             this.confirm_panel.GetComponent<ConfirmPanelController>().Show(msg, on_confirm_btn_callback);
 
+        }
+    }
+
+    public void OpenSigninPanel()
+    {
+        if (canvas != null)
+        {
+            GameObject signin_panel_temp = Instantiate(signin_panel_prefab, canvas.transform);
+            signin_panel_temp.GetComponent<SigninPanelController>().Show();
+        }
+    }
+
+    public void OpenSignupPanel()
+    {
+        if (canvas != null)
+        {
+            GameObject signup_panel_temp = Instantiate(signup_panel_prefab, canvas.transform);
+            signup_panel_temp.GetComponent<SignupPanelController>().Show();
         }
     }
 }
